@@ -5,22 +5,29 @@ var Value = Control({
     init: function(){
         this.set()
     },
-    "{value} change": "set",
+    "{value} change": function () {
+        if (this.element[0].cancelElementUpdate) {
+            this.element[0].cancelElementUpdate = false;
+        } else {
+            this.set();
+        }
+    },
     set: function(){
-        this.element.val(this.options.value())
+        this.element[0].value = this.options.value();
     },
-    "change": function(){
-        this.options.value(this.element.val())
+    get: function () {
+        this.options.value(this.element[0].value);
     },
+    "change": "get",
     "keydown": function(){
         //setTimeout? yeah, that's how knockout does it in afterkeydown, too.
         //for the uninitiated: normally, the latest el value isn't available from keydown.
         //some may say "hey dummy, just use keyup!" but if we want DAT SPEED, keydown's the only way.
         //if you want to see this in action, remove the setTimeout and watch.
         setTimeout(can.proxy(function () {
-            this.options.value(this.element.val())
+            this.element[0].cancelElementUpdate = true;
+            this.get();
         }, this), 0)
-        
     }
 });
 
