@@ -1,6 +1,7 @@
-(function (can) {
+steal("can", "can/control",
+function (can, Control) {
 
-var Value = can.Control({
+var Value = Control({
     init: function(){
         this.set()
     },
@@ -29,7 +30,7 @@ can.Mustache.registerHelper("value", function (obs) {
     }
 });
 
-var Visible = can.Control({
+var Visible = Control({
     init: function(){
         this.set()
     },
@@ -49,7 +50,7 @@ can.Mustache.registerHelper("visible", function (obs) {
     }
 });
 
-var CSSClass = can.Control({
+var CSSClass = Control({
     init: function(){
         this.set()
     },
@@ -69,7 +70,7 @@ can.Mustache.registerHelper("class", function (className, obs) {
     }
 });
 
-var Click = can.Control({
+var Click = Control({
     "click": function(){
         this.options.clickFunc(this.options.model);        
     }
@@ -82,7 +83,7 @@ can.Mustache.registerHelper("click", function (clickFunc) {
     }
 });
 
-var Submit = can.Control({
+var Submit = Control({
     "submit": function(el, ev){
         this.options.submitFunc(this.options.model);
         ev.preventDefault();
@@ -96,7 +97,7 @@ can.Mustache.registerHelper("submit", function (submitFunc) {
     }
 });
 
-var Check = can.Control({
+var Check = Control({
     init: function(){
         this.set()
     },
@@ -115,4 +116,4 @@ can.Mustache.registerHelper("checked", function (obs) {
     }
 });
 
-})(can);
+});
